@@ -1,5 +1,5 @@
 import 'reflect-metadata';
-import { Client } from 'discord.js';
+import { Client, Intents } from 'discord.js';
 import config from './config';
 import setupServices from '@monitorss/services';
 import interactionCreate from './events/interaction-create';
@@ -23,7 +23,8 @@ async function shard() {
   });
 
   const client = new Client({ 
-    intents: [],  
+    intents: ['GUILDS', 'GUILD_MESSAGES', 'DIRECT_MESSAGES', 'GUILD_MESSAGE_REACTIONS'],
+    partials: ['MESSAGE', 'CHANNEL', 'REACTION', 'GUILD_MEMBER', 'USER']
   });
 
   client.on('interactionCreate', interaction => interactionCreate(interaction, monitoServices));
